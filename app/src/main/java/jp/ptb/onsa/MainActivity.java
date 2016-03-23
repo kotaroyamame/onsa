@@ -1,12 +1,14 @@
 package jp.ptb.onsa;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -27,7 +29,7 @@ protected static final int  BITRATE     = 16;    // [bit/sec]
 static private double amplification = 0.5;  // [0.0, 1.0]
 static private double frequency = 440;      // [Hz]
 static private double duration = 1.0;       // [sec]
-
+RelativeLayout bg;
 /**
  * ATTENTION: This was auto-generated to implement the App Indexing API.
  * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -38,6 +40,7 @@ private GoogleApiClient client;
 protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
   setContentView(R.layout.activity_main);
+  bg=(RelativeLayout)this.findViewById(R.id.bg);
   this.adV();
 }
 @Override
@@ -96,8 +99,10 @@ public boolean onTouchEvent(MotionEvent event) {
         audioTrack.reloadStaticData();
         audioTrack.setLoopPoints(0,buffer.length,-1);
         audioTrack.play();
+        bg.setBackgroundColor(Color.parseColor("#dfafaf"));
       }else{
         audioTrack.stop();
+        bg.setBackgroundColor(Color.parseColor("#ffffff"));
       }
       break;
     case MotionEvent.ACTION_UP:
